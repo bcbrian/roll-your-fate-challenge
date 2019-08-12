@@ -1,4 +1,15 @@
+let currentRoll = localStorage.getItem("recentRollTotal") || "N/A";
+function displayResentRoll() {
+  document.getElementById("most-recent-roll").innerHTML =
+    localStorage.getItem("recentRollTotal") || "N/A";
+}
+function setRecentRoll(newRoll) {
+  localStorage.setItem("recentRollTotal", newRoll);
+}
+displayResentRoll();
 function rollingDirty() {
+  setRecentRoll(currentRoll);
+  displayResentRoll();
   //  v-- ROLL HERE --v
 
   /*
@@ -56,6 +67,7 @@ function rollingDirty() {
       jaybocc2 = jaybocc2 + dRoll;
     }
     coopersTotal = coopersTotal + jaybocc2 + jaysModifier; // pronounced jay
+    currentRoll = coopersTotal;
   }
   // display the results
   const jaybocc2ResEl = document.getElementById("jaybocc2Res");
