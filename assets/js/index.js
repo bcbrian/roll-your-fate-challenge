@@ -1,16 +1,25 @@
-let currentRoll = getRecentRollTotal();
+let currentRollTotal = getRecentRollTotal();
+let currentRoll = getRecentRoll();
 function displayResentRoll() {
-  document.getElementById("most-recent-roll").innerHTML = getRecentRollTotal();
+  document.getElementById("most-recent-roll").innerHTML =
+    getRecentRoll() + " rolled " + getRecentRollTotal();
 }
 function getRecentRollTotal() {
   return localStorage.getItem("recentRollTotal") || "N/A";
 }
-function setRecentRollTotal(newRoll) {
-  localStorage.setItem("recentRollTotal", newRoll);
+function setRecentRollTotal(newRollTotal) {
+  localStorage.setItem("recentRollTotal", newRollTotal);
+}
+function getRecentRoll() {
+  return localStorage.getItem("recentRoll") || "N/A";
+}
+function setRecentRoll(newRoll) {
+  localStorage.setItem("recentRoll", newRoll);
 }
 displayResentRoll();
 function rollingDirty() {
-  setRecentRollTotal(currentRoll);
+  setRecentRoll(currentRoll);
+  setRecentRollTotal(currentRollTotal);
   displayResentRoll();
   //  v-- ROLL HERE --v
 
@@ -69,7 +78,8 @@ function rollingDirty() {
       jaybocc2 = jaybocc2 + dRoll;
     }
     coopersTotal = coopersTotal + jaybocc2 + jaysModifier; // pronounced jay
-    currentRoll = coopersTotal;
+    currentRoll = coopersRoll;
+    currentRollTotal = coopersTotal;
   }
   // display the results
   const jaybocc2ResEl = document.getElementById("jaybocc2Res");
