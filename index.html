@@ -1,120 +1,31 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Roll Your Fate</title>
+  <link href="/assets/css/index.css" rel="stylesheet">
+</head>
+<body>
+  <!-- 5d20 + 3 -->
+  <!-- 5d4 - 3 -->
+  <!-- 3d6, 1d8 + 3 -->
+
+  <div>
+    Roll Your Fate
+  </div>
+
+  <div>
+    <input id="pirates_galore" />
+    <button onclick="rollingDirty()">
+      Roll
+    </button>
+  </div>
+
+  <div id="jaybocc2Res">Roll for Initiative</div>
+  <script src="/assets/js/index.js"></script>
+</body>
+</html>
 
 
-<!-- 5d20 + 3 -->
-<!-- 5d4 - 3 -->
-<!-- 3d6, 1d8 + 3 -->
-
-<style>
-  div {
-    background-color: rebeccapurple;
-    color: white;
-    margin: 12px;
-    padding: 18px;
-    text-align: center;
-    font-size: 36px;
-  }
-
-  input {
-    margin: 8px;
-    padding: 8px;
-    border-radius: 4px;
-    background-color: rebeccapurple;
-    border: 2px solid white;
-    color: white;
-    letter-spacing: 1.5px;
-    width: 100%;
-  }
-
-  button {
-    margin: 8px auto;
-    padding: 8px;
-    border-radius: 4px;
-    background-color: rebeccapurple;
-    border: 2px solid white;
-    color: white;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    width: 50%;
-  }
-</style>
-
-<script>
-  function rollingDirty() {
-    //  v-- ROLL HERE --v
-
-    /*
-      <!-- 5d20 --> DONE
-      <!-- 5d20 + 3 --> DONE
-      <!-- 5d4 - 3 --> DONE
-      <!-- 3d6, 1d8 + 3 -->
-    */ 
-
-    // COOP var
-
-    // get the user input
-    const coopersRoll = document.getElementById("pirates_galore").value.replace(/\s/g, '');
-
-    
-
-    const commaSplit = coopersRoll.split(",");
-    let coopersTotal = 0;
-    for(let i = 0;i < commaSplit.length;i++){
-      const coopsRoll = commaSplit[i];
-      // execute user input 5d20+3;
-      console.log(coopsRoll.split(""));
-      console.log(coopsRoll.split("d"));
-      console.log(coopsRoll.split("+"));
-      console.log(coopsRoll.split("-"));
-      const minusSplit = coopsRoll.split("-");
-      const plusSplit = coopsRoll.split("+");
-      let dSplit = [];
-      let jaysModifier = 0;
-
-      if (minusSplit.length > 1) {
-        jaysModifier = -1 * parseInt(minusSplit[1]);
-        dSplit = minusSplit[0].split("d");
-      } else if (plusSplit.length > 1) {
-        jaysModifier = parseInt(plusSplit[1]);
-        dSplit = plusSplit[0].split("d");
-      } else {
-        dSplit = coopsRoll.split("d");
-      }
-
-      //                  0,    1,   ...... 
-      //roll the dSplit ["5", "20"];
-      /*
-        const str = "string"
-        const num = 12354234653;
-        const bool = true; // false
-      */
-      const numRoll = parseInt(dSplit[0]) 
-      const dSides = parseInt(dSplit[1]) 
-
-      // roll 5 times for 5d20
-      let jaybocc2 = 0;
-      for(let i = 1;i <= numRoll;i++){
-        const dRoll = Math.floor(Math.random() * dSides ) + 1
-        jaybocc2 = jaybocc2 + dRoll;
-      }
-      coopersTotal = coopersTotal + jaybocc2 + jaysModifier; // pronounced jay
-    }
-    // display the results
-    const jaybocc2ResEl = document.getElementById("jaybocc2Res");
-    jaybocc2ResEl.innerHTML = coopersTotal;
-
-  }
-</script>
-
-<div>
-  Roll Your Fate
-</div>
-
-<div>
-  <input id="pirates_galore" />
-  <button onclick="rollingDirty()">
-    Roll
-  </button>
-</div>
-
-<div id="jaybocc2Res">Roll for Initiative</div>
 

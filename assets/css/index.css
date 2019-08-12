@@ -1,0 +1,31 @@
+div {
+  background-color: rebeccapurple;
+  color: white;
+  margin: 12px;
+  padding: 18px;
+  text-align: center;
+  font-size: 36px;
+}
+
+input {
+  margin: 8px;
+  padding: 8px;
+  border-radius: 4px;
+  background-color: rebeccapurple;
+  border: 2px solid white;
+  color: white;
+  letter-spacing: 1.5px;
+  width: 100%;
+}
+
+button {
+  margin: 8px auto;
+  padding: 8px;
+  border-radius: 4px;
+  background-color: rebeccapurple;
+  border: 2px solid white;
+  color: white;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  width: 50%;
+}
