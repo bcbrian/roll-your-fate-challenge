@@ -1,14 +1,16 @@
-let currentRoll = localStorage.getItem("recentRollTotal") || "N/A";
+let currentRoll = getRecentRollTotal();
 function displayResentRoll() {
-  document.getElementById("most-recent-roll").innerHTML =
-    localStorage.getItem("recentRollTotal") || "N/A";
+  document.getElementById("most-recent-roll").innerHTML = getRecentRollTotal();
 }
-function setRecentRoll(newRoll) {
+function getRecentRollTotal() {
+  return localStorage.getItem("recentRollTotal") || "N/A";
+}
+function setRecentRollTotal(newRoll) {
   localStorage.setItem("recentRollTotal", newRoll);
 }
 displayResentRoll();
 function rollingDirty() {
-  setRecentRoll(currentRoll);
+  setRecentRollTotal(currentRoll);
   displayResentRoll();
   //  v-- ROLL HERE --v
 
