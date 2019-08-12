@@ -1,25 +1,30 @@
-let currentRollTotal = getRecentRollTotal();
-let currentRoll = getRecentRoll();
+function getRecentRolls() {
+  return JSON.parse(localStorage.getItem("recentRolls") || "[]");
+}
+function setRecentRolls(newRolls) {
+  localStorage.setItem("recentRolls", JSON.stringify(newRolls));
+}
 function displayResentRoll() {
-  document.getElementById("most-recent-roll").innerHTML =
-    getRecentRoll() + " rolled " + getRecentRollTotal();
-}
-function getRecentRollTotal() {
-  return localStorage.getItem("recentRollTotal") || "N/A";
-}
-function setRecentRollTotal(newRollTotal) {
-  localStorage.setItem("recentRollTotal", newRollTotal);
-}
-function getRecentRoll() {
-  return localStorage.getItem("recentRoll") || "N/A";
-}
-function setRecentRoll(newRoll) {
-  localStorage.setItem("recentRoll", newRoll);
+  const recentRolls = getRecentRolls();
+  const mostRecentRoll = document.getElementById("most-recent-roll");
+  mostRecentRoll.innerHTML = "";
+  for (let i = 0; i < recentRolls.length; i++) {
+    const roll = recentRolls[i];
+    const p = document.createElement("p");
+    p.innerHTML = roll.roll + " => " + roll.total;
+    mostRecentRoll.append(p);
+  }
 }
 displayResentRoll();
+function handleNewRoll(newRoll) {
+  const recentRolls = getRecentRolls();
+  recentRolls.unshift(newRoll);
+  if (recentRolls.length > 3) {
+    recentRolls.pop();
+  }
+  setRecentRolls(recentRolls);
+}
 function rollingDirty() {
-  setRecentRoll(currentRoll);
-  setRecentRollTotal(currentRollTotal);
   displayResentRoll();
   //  v-- ROLL HERE --v
 
@@ -78,8 +83,7 @@ function rollingDirty() {
       jaybocc2 = jaybocc2 + dRoll;
     }
     coopersTotal = coopersTotal + jaybocc2 + jaysModifier; // pronounced jay
-    currentRoll = coopersRoll;
-    currentRollTotal = coopersTotal;
+    handleNewRoll({ roll: coopersRoll, total: coopersTotal });
   }
   // display the results
   const jaybocc2ResEl = document.getElementById("jaybocc2Res");
