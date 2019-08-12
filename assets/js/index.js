@@ -1,28 +1,35 @@
-function getRecentRolls() {
-  return JSON.parse(localStorage.getItem("recentRolls") || "[]");
+function getRecentRolls(cb) {
+  localforage.getItem("recentRolls").then(function(results) {
+    cb(results || []);
+  });
 }
-function setRecentRolls(newRolls) {
-  localStorage.setItem("recentRolls", JSON.stringify(newRolls));
+function setRecentRolls(newRolls, cb) {
+  localforage.setItem("recentRolls", newRolls).then(function() {
+    cb();
+  });
 }
 function displayResentRoll() {
-  const recentRolls = getRecentRolls();
-  const mostRecentRoll = document.getElementById("most-recent-roll");
-  mostRecentRoll.innerHTML = "";
-  for (let i = 0; i < recentRolls.length; i++) {
-    const roll = recentRolls[i];
-    const p = document.createElement("p");
-    p.innerHTML = roll.roll + " => " + roll.total;
-    mostRecentRoll.append(p);
-  }
+  getRecentRolls(function(recentRolls) {
+    const mostRecentRoll = document.getElementById("most-recent-roll");
+    mostRecentRoll.innerHTML = "";
+    for (let i = 0; i < recentRolls.length; i++) {
+      const roll = recentRolls[i];
+      const p = document.createElement("p");
+      p.innerHTML = roll.roll + " => " + roll.total;
+      mostRecentRoll.append(p);
+    }
+  });
 }
 displayResentRoll();
+
 function handleNewRoll(newRoll) {
-  const recentRolls = getRecentRolls();
-  recentRolls.unshift(newRoll);
-  if (recentRolls.length > 3) {
-    recentRolls.pop();
-  }
-  setRecentRolls(recentRolls);
+  getRecentRolls(function(recentRolls) {
+    recentRolls.unshift(newRoll);
+    if (recentRolls.length > 3) {
+      recentRolls.pop();
+    }
+    setRecentRolls(recentRolls);
+  });
 }
 function rollingDirty() {
   displayResentRoll();
